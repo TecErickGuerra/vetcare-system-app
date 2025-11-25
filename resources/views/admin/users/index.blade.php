@@ -8,11 +8,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Botón crear nuevo usuario -->
+            {{--
             <div class="mb-6 flex justify-between items-center">
                 <h3 class="text-lg font-medium text-gray-900">Lista de Usuarios</h3>
                 <a href="{{ route('admin.users.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     + Nuevo Usuario
                 </a>
+            </div>
+            --}}
+
+            <!-- Título de la lista -->
+            <div class="mb-6">
+                <h3 class="text-lg font-medium text-gray-900">Lista de Usuarios</h3>
             </div>
 
             <!-- Mensajes de éxito/error -->
@@ -85,6 +92,7 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                {{--
                                                 <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</a>
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
                                                     @csrf
@@ -94,6 +102,7 @@
                                                         Eliminar
                                                     </button>
                                                 </form>
+                                                --}}
                                             </td>
                                         </tr>
                                     @endforeach

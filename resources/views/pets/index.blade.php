@@ -8,12 +8,14 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Botón crear nueva mascota -->
+             <!--
             <div class="mb-6 flex justify-between items-center">
                 <h3 class="text-lg font-medium text-gray-900">Lista de Mascotas</h3>
                 <a href="{{ route('pets.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     + Nueva Mascota
                 </a>
             </div>
+            -->
 
             <!-- Mensajes -->
             @if(session('success'))
@@ -81,6 +83,8 @@
                                                     @endif
                                                 </span>
                                             </td>
+
+                                            <!--
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <a href="{{ route('pets.show', $pet) }}" class="text-green-600 hover:text-green-900 mr-3">Ver</a>
                                                 <a href="{{ route('pets.edit', $pet) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</a>
@@ -93,6 +97,7 @@
                                                     </button>
                                                 </form>
                                             </td>
+                                            -->
                                         </tr>
                                     @endforeach
                                 </tbody>
