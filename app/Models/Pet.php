@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Pet extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name', 
+        'species', 
+        'breed', 
+        'age', 
+        'medical_history', 
+        'owner_id', 
+        'is_active'
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+}
