@@ -22,7 +22,7 @@ class PetController extends Controller
      */
     public function create()
     {
-        $users = User::where('role_id', 3)->get(); // Solo clientes
+        $users = User::where('role_id', 3)->where('is_active', true)->get(); // Solo clientes activos
         return view('pets.create', compact('users'));
     }
 
@@ -67,7 +67,7 @@ class PetController extends Controller
      */
     public function edit(Pet $pet)
     {
-        $users = User::where('role_id', 3)->get(); // Solo clientes
+        $users = User::where('role_id', 3)->where('is_active', true)->get(); // Solo clientes activos
         return view('pets.edit', compact('pet', 'users'));
     }
 
@@ -83,18 +83,10 @@ class PetController extends Controller
             'age' => 'required|integer|min:0|max:50',
             'medical_history' => 'nullable|string',
             'owner_id' => 'required|exists:users,id',
-            'is_active' => 'boolean',
+            'is_active' => 'required|boolean',
         ]);
 
-        $pet->update([
-            'name' => $request->name,
-            'species' => $request->species,
-            'breed' => $request->breed,
-            'age' => $request->age,
-            'medical_history' => $request->medical_history,
-            'owner_id' => $request->owner_id,
-            'is_active' => $request->is_active ?? $pet->is_active,
-        ]);
+        $pet->update($request->all());
 
         return redirect()->route('pets.index')
             ->with('success', 'Mascota actualizada exitosamente.');

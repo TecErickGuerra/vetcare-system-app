@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\PetController;
 
 Route::get('/', function () {
     return 'Bienvenido a VetCare - <a href="/login">Login</a>';
@@ -9,33 +11,33 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
-// Dashboard con el controlador real
+// Dashboard
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-// ==================== RUTAS DE GESTIÓN (AÑADIR GRADUALMENTE) ====================
-
-// Rutas REALES de administración
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-});
-
-// Rutas REALES de mascotas
-Route::middleware(['auth'])->group(function () {
-    Route::get('/pets', [App\Http\Controllers\PetController::class, 'index'])->name('pets.index');
-});
-
-// ==================== RUTAS DE USUARIOS ====================
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-    Route::get('/users/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.users.create');
-    Route::get('/users/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.users.edit');
+// ==================== RUTAS DE ADMINISTRACIÓN ====================
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Gestión de Usuarios - RUTAS COMPLETAS
+    Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('users/create', [AdminUserController::class, 'create'])->name('users.create');
+    Route::post('users', [AdminUserController::class, 'store'])->name('users.store');
+    Route::get('users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+    Route::put('users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
 });
 
 // ==================== RUTAS DE MASCOTAS ====================
 Route::middleware(['auth'])->group(function () {
-    Route::get('/pets', [App\Http\Controllers\PetController::class, 'index'])->name('pets.index');
-    Route::get('/pets/create', [App\Http\Controllers\PetController::class, 'create'])->name('pets.create');
-    Route::get('/pets/{pet}/edit', [App\Http\Controllers\PetController::class, 'edit'])->name('pets.edit');
+    // Gestión de Mascotas - RUTAS COMPLETAS
+    Route::get('pets', [PetController::class, 'index'])->name('pets.index');
+    Route::get('pets/create', [PetController::class, 'create'])->name('pets.create');
+    Route::post('pets', [PetController::class, 'store'])->name('pets.store');
+    Route::get('pets/{pet}', [PetController::class, 'show'])->name('pets.show');
+    Route::get('pets/{pet}/edit', [PetController::class, 'edit'])->name('pets.edit');
+    Route::put('pets/{pet}', [PetController::class, 'update'])->name('pets.update');
+    Route::delete('pets/{pet}', [PetController::class, 'destroy'])->name('pets.destroy');
+    
+    // Ruta adicional para mascotas del usuario actual
+    Route::get('my-pets', [PetController::class, 'myPets'])->name('pets.my-pets');
 });

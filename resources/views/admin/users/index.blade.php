@@ -7,19 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Botón crear nuevo usuario -->
-            {{--
+            <!-- Botón crear nuevo usuario y título -->
             <div class="mb-6 flex justify-between items-center">
                 <h3 class="text-lg font-medium text-gray-900">Lista de Usuarios</h3>
                 <a href="{{ route('admin.users.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     + Nuevo Usuario
                 </a>
-            </div>
-            --}}
-
-            <!-- Título de la lista -->
-            <div class="mb-6">
-                <h3 class="text-lg font-medium text-gray-900">Lista de Usuarios</h3>
             </div>
 
             <!-- Mensajes de éxito/error -->
@@ -62,7 +55,7 @@
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach($users as $user)
-                                        <tr>
+                                        <tr class="hover:bg-gray-50">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>
                                             </td>
@@ -92,17 +85,40 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                {{--
-                                                <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</a>
-                                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900" 
-                                                            onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">
-                                                        Eliminar
-                                                    </button>
-                                                </form>
-                                                --}}
+                                                <div class="flex space-x-2">
+                                                    <!-- Botón Editar -->
+                                                    <a href="{{ route('admin.users.edit', $user) }}" 
+                                                       class="text-indigo-600 hover:text-indigo-900 flex items-center">
+                                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                        </svg>
+                                                        Editar
+                                                    </a>
+                                                    
+                                                    <!-- Botón Eliminar (solo para usuarios no protegidos y que no sean el usuario actual) -->
+                                                    @if($user->canBeDeleted() && $user->id !== auth()->id())
+                                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" 
+                                                                class="text-red-600 hover:text-red-900 flex items-center"
+                                                                onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">
+                                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                            Eliminar
+                                                        </button>
+                                                    </form>
+                                                    @else
+                                                        <!-- Espacio para mantener la alineación cuando no hay botón eliminar -->
+                                                        <span class="text-gray-400 flex items-center">
+                                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                            Eliminar
+                                                        </span>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -121,6 +137,11 @@
                             </svg>
                             <h3 class="mt-2 text-sm font-medium text-gray-900">No hay usuarios</h3>
                             <p class="mt-1 text-sm text-gray-500">Comienza creando un nuevo usuario.</p>
+                            <div class="mt-4">
+                                <a href="{{ route('admin.users.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Crear Primer Usuario
+                                </a>
+                            </div>
                         </div>
                     @endif
                 </div>

@@ -15,7 +15,8 @@ class User extends Authenticatable
         'email', 
         'password',
         'role_id',
-        'is_active'
+        'status',
+        'is_protected'
     ];
 
     protected $hidden = [
@@ -28,13 +29,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'is_active' => 'boolean',
+            'is_protected' => 'boolean',
         ];
-    }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
     }
 
     public function pets()
@@ -44,16 +40,22 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role_id === 1;
+        return $this->role_id === 'Administrador';
     }
 
     public function isStaff()
     {
-        return $this->role_id === 2;
+        return $this->role_id === 'Staff';
     }
 
     public function isClient()
     {
-        return $this->role_id === 3;
+        return $this->role_id === 'Cliente';
+    }
+
+    // Método para verificar si el usuario esta activo
+    public function canBeDeleted(): bool
+    {
+        return !$this->is_protected;
     }
 }

@@ -74,10 +74,14 @@
                             <div>
                                 <label for="is_active" class="block text-sm font-medium text-gray-700">Estado</label>
                                 <select name="is_active" id="is_active"
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Activo</option>
-                                    <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Inactivo</option>
+                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                        required>
+                                    <option value="1" {{ old('is_active', '1') == '1' ? 'selected' : '' }}>Activo</option>
+                                    <option value="0" {{ old('is_active') == '0' ? 'selected' : '' }}>Inactivo</option>
                                 </select>
+                                @error('is_active')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 

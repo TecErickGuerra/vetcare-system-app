@@ -68,6 +68,13 @@
                             </svg>
                             <h3 class="mt-4 text-lg font-medium text-gray-900">No tienes mascotas registradas</h3>
                             <p class="mt-2 text-sm text-gray-500">Contacta con el staff para registrar tu primera mascota.</p>
+                            @if(auth()->user()->isClient())
+                            <div class="mt-4">
+                                <a href="{{ route('pets.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Registrar Mi Mascota
+                                </a>
+                            </div>
+                            @endif
                         </div>
                     @endif
                 </div>

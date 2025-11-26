@@ -40,11 +40,11 @@
                                 </div>
                                 <div>
                                     <dt class="text-sm font-medium text-gray-500">Dueño</dt>
-                                    <dd class="text-sm text-gray-900">{{ $pet->owner->name }}</dd>
+                                    <dd class="text-sm text-gray-900">{{ $pet->owner->name ?? 'N/A' }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-sm font-medium text-gray-500">Email del Dueño</dt>
-                                    <dd class="text-sm text-gray-900">{{ $pet->owner->email }}</dd>
+                                    <dd class="text-sm text-gray-900">{{ $pet->owner->email ?? 'N/A' }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-sm font-medium text-gray-500">Fecha de Registro</dt>
@@ -67,9 +67,15 @@
                     </div>
 
                     <div class="mt-8 flex justify-end space-x-3">
-                        <a href="{{ route('pets.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                            Volver
-                        </a>
+                        @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
+                            <a href="{{ route('pets.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                Volver al Listado
+                            </a>
+                        @else
+                            <a href="{{ route('pets.my-pets') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                Volver a Mis Mascotas
+                            </a>
+                        @endif
                         <a href="{{ route('pets.edit', $pet) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Editar
                         </a>

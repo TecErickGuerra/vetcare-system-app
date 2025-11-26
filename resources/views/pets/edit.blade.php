@@ -31,6 +31,7 @@
                                 <select name="species" id="species" 
                                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         required>
+                                    <option value="">Seleccionar especie</option>
                                     <option value="perro" {{ old('species', $pet->species) == 'perro' ? 'selected' : '' }}>Perro</option>
                                     <option value="gato" {{ old('species', $pet->species) == 'gato' ? 'selected' : '' }}>Gato</option>
                                     <option value="ave" {{ old('species', $pet->species) == 'ave' ? 'selected' : '' }}>Ave</option>
@@ -47,7 +48,8 @@
                             <div>
                                 <label for="breed" class="block text-sm font-medium text-gray-700">Raza</label>
                                 <input type="text" name="breed" id="breed" value="{{ old('breed', $pet->breed) }}"
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                       placeholder="Ej: Labrador, Siames, etc.">
                                 @error('breed')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -71,6 +73,7 @@
                                 <select name="owner_id" id="owner_id" 
                                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         required>
+                                    <option value="">Seleccionar dueño</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}" {{ old('owner_id', $pet->owner_id) == $user->id ? 'selected' : '' }}>
                                             {{ $user->name }} ({{ $user->email }})
@@ -81,13 +84,16 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            @else
+                                <input type="hidden" name="owner_id" value="{{ auth()->id() }}">
                             @endif
 
                             <!-- Historial Médico -->
                             <div class="md:col-span-2">
                                 <label for="medical_history" class="block text-sm font-medium text-gray-700">Historial Médico</label>
                                 <textarea name="medical_history" id="medical_history" rows="4"
-                                          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('medical_history', $pet->medical_history) }}</textarea>
+                                          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                          placeholder="Información médica relevante, alergias, tratamientos, etc.">{{ old('medical_history', $pet->medical_history) }}</textarea>
                                 @error('medical_history')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -95,12 +101,16 @@
 
                             <!-- Estado -->
                             <div>
-                                <label for="is_active" class="block text-sm font-medium text-gray-700">Estado</label>
+                                <label for="is_active" class="block text-sm font-medium text-gray-700">Estado *</label>
                                 <select name="is_active" id="is_active"
-                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                        required>
                                     <option value="1" {{ old('is_active', $pet->is_active) == 1 ? 'selected' : '' }}>Activo</option>
                                     <option value="0" {{ old('is_active', $pet->is_active) == 0 ? 'selected' : '' }}>Inactivo</option>
                                 </select>
+                                @error('is_active')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 
