@@ -38,4 +38,13 @@ Sistema de gestión veterinaria desarrollado en Laravel para la administración 
 - **SQLite** - Base de datos (en desarrollo)
 - **Laravel Breeze** - Sistema de autenticación
 
+## Instrucciones para como ejecutarlo
+
+1) Clonar el proyecto guardado en GitHub en VSC
+2) Ejecutar en la terminal php artisan server y npm run dev en ambas terminales separadas
+3) Abrir con el enlace desde la barra de busqueda en la página web para que te diriga
+4) Registrarse con los datos del correo y contraseña solicitados en UserSeeder.php
+
 ## Estructura del Proyecto
+
+✅ **Completado** - Sistema funcional con todas las características básicas implementadas
