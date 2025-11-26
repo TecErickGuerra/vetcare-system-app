@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\PetController;
 
 Route::get('/', function () {
-    return 'Bienvenido a VetCare - <a href="/login">Login</a>';
+    return redirect()->route('login');
 });
 
 require __DIR__.'/auth.php';
