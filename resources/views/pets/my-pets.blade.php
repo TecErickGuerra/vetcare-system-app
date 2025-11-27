@@ -54,7 +54,7 @@
                                     @endif
 
                                     <div class="mt-6 flex space-x-2">
-                                        <a href="{{ route('pets.show-my-pet', $pet) }}" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded text-sm">
+                                        <a href="{{ route('pets.show', $pet) }}" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded text-sm">
                                             Ver Detalles
                                         </a>
                                     </div>

@@ -15,7 +15,7 @@ class User extends Authenticatable
         'email', 
         'password',
         'role_id',
-        'status',
+        'is_active',
         'is_protected'
     ];
 
@@ -29,6 +29,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
             'is_protected' => 'boolean',
         ];
     }
@@ -40,17 +41,17 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role_id === 'Administrador';
+        return $this->role_id === '1';
     }
 
     public function isStaff()
     {
-        return $this->role_id === 'Staff';
+        return $this->role_id === '2';
     }
 
     public function isClient()
     {
-        return $this->role_id === 'Cliente';
+        return $this->role_id === '3';
     }
 
     // Método para verificar si el usuario esta activo
