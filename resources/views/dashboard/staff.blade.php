@@ -32,7 +32,16 @@
                                 </svg>
                                 <div>
                                     <h4 class="text-lg font-semibold text-green-700">Información</h4>
-                                    <p class="text-green-600 text-sm">Rol: Staff Veterinario</p>
+                                    <p class="text-green-600 text-sm">
+                                        Rol: 
+                                        @if(Auth::user()->role_id == 1)
+                                            Administrador
+                                        @elseif(Auth::user()->role_id == 2)
+                                            Staff
+                                        @else
+                                            Cliente
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>
